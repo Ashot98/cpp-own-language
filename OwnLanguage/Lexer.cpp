@@ -1,7 +1,7 @@
 #include "Lexer.h"
 
-std::string Lexer::operators = "+-*/";
-std::vector<TokenType> Lexer::operatorsTokenTypes = { PLUS, MINUS, STAR, SLASH };
+std::string Lexer::operators = "+-*/()";
+std::vector<TokenType> Lexer::operatorsTokenTypes = { PLUS, MINUS, STAR, SLASH, LEFT_PARENTHESES, RIGHT_PARENTHESES };
 
 Lexer::Lexer(std::string initialInput) {
 	input = initialInput;
@@ -9,8 +9,8 @@ Lexer::Lexer(std::string initialInput) {
 }
 
 std::vector<Token> Lexer::tokenize() {
-	char currentValue = input.at(currentPosition);
 	while (currentPosition < input.length()) {
+		char currentValue = input.at(currentPosition);
 		if (std::isdigit(currentValue)) {
 			tokenizeNumber();
 			
@@ -18,7 +18,9 @@ std::vector<Token> Lexer::tokenize() {
 		else if (operators.find(currentValue) != -1) {
 			tokenizeOperator();
 		}
-		currentValue = next();
+		else {
+			next();
+		}
 	}
 
 	tokenList.push_back(Token(END_OF_FILE, ""));
@@ -43,6 +45,7 @@ void Lexer::tokenizeOperator()
 	int operatorIndex = operators.find(currentValue);
 	
 	addToken(operatorsTokenTypes.at(operatorIndex));
+	next();
 }
 
 char Lexer::next()

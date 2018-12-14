@@ -9,6 +9,9 @@ enum TokenType {
 	STAR,
 	SLASH,
 
+	LEFT_PARENTHESES,
+	RIGHT_PARENTHESES,
+
 	END_OF_FILE
 };
 
@@ -32,6 +35,12 @@ inline std::ostream & operator<<(std::ostream & out, TokenType tokenType) {
 		break;
 	case END_OF_FILE:
 		out << "END_OF_FILE";
+		break;
+	case LEFT_PARENTHESES:
+		out << "LEFT_PARENTHESES";
+		break;
+	case RIGHT_PARENTHESES:
+		out << "RIGHT_PARENTHESES";
 		break;
 	default:
 		break;

@@ -19,12 +19,19 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="IntegerExpression.cpp" />
     <ClCompile Include="Lexer.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="BinaryOperationExpression.cpp" />
+    <ClCompile Include="Parser.cpp" />
     <ClCompile Include="Token.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Expression.h" />
+    <ClInclude Include="IntegerExpression.h" />
     <ClInclude Include="Lexer.h" />
+    <ClInclude Include="BinaryOperationExpression.h" />
+    <ClInclude Include="Parser.h" />
     <ClInclude Include="Token.h" />
     <ClInclude Include="TokenTypes.h" />
   </ItemGroup>
