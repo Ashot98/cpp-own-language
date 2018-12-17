@@ -5,12 +5,15 @@
 #include <memory>
 #include <exception>
 #include "Token.h"
-#include "Expression.h"
 #include "IntegerExpression.h"
 #include "TextExpression.h"
 #include "BinaryOperationExpression.h"
+#include "BasicStatement.h"
+#include "AssignStatement.h"
+#include "PrintStatement.h"
 
 using ExpressionPointer = std::shared_ptr<Expression>;
+using StatementPointer = std::shared_ptr<Statement>;
 
 class Parser
 {
@@ -26,11 +29,11 @@ private:
 	void validateTokens();
 
 	bool matchType(TokenType);
-	void incrementPosition();
+	bool move(int);
 public:
 	Parser(std::vector<Token>);
 
-	std::vector<ExpressionPointer> parse();
+	std::vector<StatementPointer> parse();
 };
 
 

@@ -19,6 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AssignStatement.cpp" />
+    <ClCompile Include="BasicStatement.cpp" />
     <ClCompile Include="FileHandler.cpp" />
     <ClCompile Include="IntegerExpression.cpp" />
     <ClCompile Include="IntegerValue.cpp" />
@@ -26,11 +28,15 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="BinaryOperationExpression.cpp" />
     <ClCompile Include="Parser.cpp" />
+    <ClCompile Include="PrintStatement.cpp" />
     <ClCompile Include="TextExpression.cpp" />
     <ClCompile Include="TextValue.cpp" />
     <ClCompile Include="Token.cpp" />
+    <ClCompile Include="Variables.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AssignStatement.h" />
+    <ClInclude Include="BasicStatement.h" />
     <ClInclude Include="Expression.h" />
     <ClInclude Include="FileHandler.h" />
     <ClInclude Include="IntegerExpression.h" />
@@ -38,11 +44,14 @@
     <ClInclude Include="Lexer.h" />
     <ClInclude Include="BinaryOperationExpression.h" />
     <ClInclude Include="Parser.h" />
+    <ClInclude Include="PrintStatement.h" />
+    <ClInclude Include="Statement.h" />
     <ClInclude Include="TextExpression.h" />
     <ClInclude Include="TextValue.h" />
     <ClInclude Include="Token.h" />
     <ClInclude Include="TokenTypes.h" />
     <ClInclude Include="Value.h" />
+    <ClInclude Include="Variables.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

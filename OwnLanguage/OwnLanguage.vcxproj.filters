@@ -25,6 +25,12 @@
     <Filter Include="Файлы заголовков\Values">
       <UniqueIdentifier>{4b89e4dc-06d0-4aac-a11f-5264e2ac8aff}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Файлы заголовков\Statements">
+      <UniqueIdentifier>{9773dfb6-8b11-4c50-8bbe-21384eefdc1f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\Statements">
+      <UniqueIdentifier>{d293eb0c-7a1f-4bb6-b221-c6ee991a907e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -56,6 +62,18 @@
     </ClCompile>
     <ClCompile Include="FileHandler.cpp">
       <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="Variables.cpp">
+      <Filter>Исходные файлы\Values</Filter>
+    </ClCompile>
+    <ClCompile Include="BasicStatement.cpp">
+      <Filter>Исходные файлы\Statements</Filter>
+    </ClCompile>
+    <ClCompile Include="AssignStatement.cpp">
+      <Filter>Исходные файлы\Statements</Filter>
+    </ClCompile>
+    <ClCompile Include="PrintStatement.cpp">
+      <Filter>Исходные файлы\Statements</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -94,6 +112,21 @@
     </ClInclude>
     <ClInclude Include="FileHandler.h">
       <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="Variables.h">
+      <Filter>Файлы заголовков\Values</Filter>
+    </ClInclude>
+    <ClInclude Include="Statement.h">
+      <Filter>Файлы заголовков\Statements</Filter>
+    </ClInclude>
+    <ClInclude Include="BasicStatement.h">
+      <Filter>Файлы заголовков\Statements</Filter>
+    </ClInclude>
+    <ClInclude Include="AssignStatement.h">
+      <Filter>Файлы заголовков\Statements</Filter>
+    </ClInclude>
+    <ClInclude Include="PrintStatement.h">
+      <Filter>Файлы заголовков\Statements</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

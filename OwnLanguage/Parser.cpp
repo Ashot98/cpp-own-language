@@ -6,20 +6,26 @@ ExpressionPointer Parser::parseValue()
 	Token currentToken = tokensToParse.at(currentPosition);
 
 	if (matchType(NUMBER)) {
-		incrementPosition();
+		move(1);
 		IntegerExpression result(std::stoi(currentToken.getValue()));
 		return std::make_shared<IntegerExpression>(result);
 	}
 	if (matchType(TEXT)) {
-		incrementPosition();
+		move(1);
 		TextExpression result(currentToken.getValue());
 		return std::make_shared<TextExpression>(result);
 	}
+	if (matchType(WORD)) {
+		move(1);
+		ValuePointer value = Variables::getVariable(currentToken.getValue());
+		IntegerExpression result(value->getInteger());
+		return std::make_shared<IntegerExpression>(result);
+	}
 	if (matchType(LEFT_PARENTHESES)) {
-		incrementPosition();
+		move(1);
 		ExpressionPointer result = parseToken();
 		if (matchType(RIGHT_PARENTHESES)) {
-			incrementPosition();
+			move(1);
 		}
 		return result;
 	}
@@ -31,12 +37,12 @@ ExpressionPointer Parser::parseMultiplicativeOp()
 	ExpressionPointer currentExpression = parseValue();
 	while (true) {
 		if (matchType(SLASH)) {
-			incrementPosition();
+			move(1);
 			BinaryOperationExpression result(SLASH, currentExpression, parseValue());
 			currentExpression = std::make_shared<BinaryOperationExpression>(result);
 		}
 		else if (matchType(STAR)) {
-			incrementPosition();
+			move(1);
 			BinaryOperationExpression result(STAR, currentExpression, parseValue());
 			currentExpression = std::make_shared<BinaryOperationExpression>(result);
 		}
@@ -53,12 +59,12 @@ ExpressionPointer Parser::parseAdditiveOp()
 	ExpressionPointer currentExpression = parseMultiplicativeOp();
 	while (true) {
 		if (matchType(PLUS)) {
-			incrementPosition();
+			move(1);
 			BinaryOperationExpression result(PLUS, currentExpression, parseMultiplicativeOp());
 			currentExpression = std::make_shared<BinaryOperationExpression>(result);
 		}
 		else if (matchType(MINUS)) {
-			incrementPosition();
+			move(1);
 			BinaryOperationExpression result(MINUS, currentExpression, parseMultiplicativeOp());
 			currentExpression = std::make_shared<BinaryOperationExpression>(result);
 		}
@@ -102,9 +108,15 @@ bool Parser::matchType(TokenType comparisionType)
 	return currentToken.getType() == comparisionType;
 }
 
-void Parser::incrementPosition()
+bool Parser::move(int steps)
 {
-	++currentPosition;
+	int newPosition = currentPosition + steps;
+	if (newPosition >= tokensToParse.size()) {
+		return false;
+	}
+
+	currentPosition = newPosition;
+	return true;
 }
 
 Parser::Parser(std::vector<Token> initialList)
@@ -112,14 +124,44 @@ Parser::Parser(std::vector<Token> initialList)
 	tokensToParse.assign(initialList.begin(), initialList.end());
 }
 
-std::vector<ExpressionPointer> Parser::parse()
+std::vector<StatementPointer> Parser::parse()
 {
 	validateTokens();
 
-	std::vector<ExpressionPointer> result;
-	while (tokensToParse.at(currentPosition).getType() != END_OF_FILE) {
-		result.push_back(parseToken());
+	std::vector<StatementPointer> result;
+	Token currentToken = tokensToParse.at(currentPosition);
+	while (currentToken.getType() != END_OF_FILE) {
+		
+		if (currentToken.getType() == NEW_LINE) {
+			if (!result.empty()) {
+				int lastIndex = result.size() - 1;
+				result[lastIndex]->execute();
+			}
+			move(1);
+		}
+		else if (currentToken.getType() == WORD && tokensToParse.at(currentPosition + 1).getType() == EQUAL) {
+			if (move(2)) {
+				AssignStatement value(currentToken.getValue(), parseToken());
+				result.push_back(std::make_shared<AssignStatement>(value));
+			}
+			
+		}
+		else if (currentToken.getType() == PRINT) {
+			if (move(1)) {
+				PrintStatement value(parseToken());
+				result.push_back(std::make_shared<PrintStatement>(value));
+			}
+		}
+		else {
+			BasicStatement value(parseToken());
+			result.push_back(std::make_shared<BasicStatement>(value));
+		}
+		currentToken = tokensToParse.at(currentPosition);
 	}
 
+	if (!result.empty()) {
+		int lastIndex = result.size() - 1;
+		result[lastIndex]->execute();
+	}
 	return result;
 }

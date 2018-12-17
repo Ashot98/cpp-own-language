@@ -1,7 +1,7 @@
 #include "Lexer.h"
 
-std::string Lexer::operators = "+-*/()";
-std::vector<TokenType> Lexer::operatorsTokenTypes = { PLUS, MINUS, STAR, SLASH, LEFT_PARENTHESES, RIGHT_PARENTHESES };
+std::string Lexer::operators = "+-*/()=";
+std::vector<TokenType> Lexer::operatorsTokenTypes = { PLUS, MINUS, STAR, SLASH, LEFT_PARENTHESES, RIGHT_PARENTHESES, EQUAL };
 
 Lexer::Lexer(std::string initialInput) {
 	input = initialInput;
@@ -13,20 +13,27 @@ std::vector<Token> Lexer::tokenize() {
 		char currentValue = input.at(currentPosition);
 		if (std::isdigit(currentValue)) {
 			tokenizeNumber();
-			
+
 		}
 		else if (currentValue == '"') {
 			tokenizeText();
 		}
+		else if (isalpha(currentValue)) {
+			tokenizeWord();
+		}
 		else if (operators.find(currentValue) != -1) {
 			tokenizeOperator();
+		}
+		else if (currentValue == '\n') {
+			addToken(NEW_LINE);
+			next();
 		}
 		else {
 			next();
 		}
 	}
 
-	tokenList.push_back(Token(END_OF_FILE, ""));
+	addToken(END_OF_FILE);
 
 	return tokenList;
 }
@@ -54,8 +61,27 @@ void Lexer::tokenizeText()
 			throw new std::runtime_error("Invalid String Literal");
 		}
 	}
-	next();
+
 	addToken(TEXT, textValue);
+}
+
+void Lexer::tokenizeWord()
+{
+	std::string textValue = "";
+	textValue.push_back(input.at(currentPosition));
+	char currentValue = next();
+
+	while (isalpha(currentValue) || isdigit(currentValue) || currentValue == '_') {
+		textValue.push_back(currentValue);
+		currentValue = next();
+	}
+
+	if (textValue == "print") {
+		addToken(PRINT);
+		return;
+	}
+
+	addToken(WORD, textValue);
 }
 
 void Lexer::tokenizeOperator()

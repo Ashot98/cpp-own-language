@@ -17,6 +17,7 @@ private:
 	
 	void tokenizeNumber();
 	void tokenizeText();
+	void tokenizeWord();
 	void tokenizeOperator();
 
 	char next();

@@ -4,16 +4,21 @@
 enum TokenType {
 	NUMBER,
 	TEXT,
+	WORD,
 
 	PLUS,
 	MINUS,
 	STAR,
 	SLASH,
+	EQUAL,
 
 	LEFT_PARENTHESES,
 	RIGHT_PARENTHESES,
 
-	END_OF_FILE
+	NEW_LINE,
+	END_OF_FILE,
+
+	PRINT
 };
 
 inline std::ostream & operator<<(std::ostream & out, TokenType tokenType) {
@@ -24,6 +29,9 @@ inline std::ostream & operator<<(std::ostream & out, TokenType tokenType) {
 		break;
 	case TEXT:
 		out << "TEXT";
+		break;
+	case WORD:
+		out << "WORD";
 		break;
 	case PLUS:
 		out << "PLUS";
@@ -37,14 +45,23 @@ inline std::ostream & operator<<(std::ostream & out, TokenType tokenType) {
 	case SLASH:
 		out << "SLASH";
 		break;
+	case EQUAL:
+		out << "EQUAL";
+		break;
 	case END_OF_FILE:
 		out << "END_OF_FILE";
+		break;
+	case NEW_LINE:
+		out << "NEW_LINE";
 		break;
 	case LEFT_PARENTHESES:
 		out << "LEFT_PARENTHESES";
 		break;
 	case RIGHT_PARENTHESES:
 		out << "RIGHT_PARENTHESES";
+		break;
+	case PRINT:
+		out << "PRINT";
 		break;
 	default:
 		break;
