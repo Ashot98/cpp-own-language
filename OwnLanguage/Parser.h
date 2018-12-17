@@ -7,6 +7,7 @@
 #include "Token.h"
 #include "Expression.h"
 #include "IntegerExpression.h"
+#include "TextExpression.h"
 #include "BinaryOperationExpression.h"
 
 using ExpressionPointer = std::shared_ptr<Expression>;
@@ -17,7 +18,7 @@ private:
 	std::vector<Token> tokensToParse;
 	int currentPosition;
 
-	ExpressionPointer parseNumber();
+	ExpressionPointer parseValue();
 	ExpressionPointer parseMultiplicativeOp();
 	ExpressionPointer parseAdditiveOp();
 	ExpressionPointer parseToken();

@@ -8,25 +8,46 @@ BinaryOperationExpression::BinaryOperationExpression(TokenType initialOperation,
 }
 
 
-int BinaryOperationExpression::evaluate()
+ValuePointer BinaryOperationExpression::evaluate()
 {
+	ValuePointer leftValue = leftOperand->evaluate();
+	ValuePointer rightValue = rightOperand->evaluate();
 
+	if (leftValue->getTypeName() == "str") {
+		std::string value;
+		switch (operation)
+		{
+		case PLUS:
+			value = leftValue->getString() + rightValue->getString();
+			return std::make_shared<TextValue>(value);
+			break;
+		default:
+			return std::make_shared<TextValue>("");
+			break;
+		}
+	}
+
+	int value;
 	switch (operation)
 	{
 	case PLUS:
-		return leftOperand->evaluate() + rightOperand->evaluate();
+		value = leftOperand->evaluate()->getInteger() + rightOperand->evaluate()->getInteger();
+		return std::make_shared<IntegerValue>(value);
 		break;
 	case MINUS:
-		return leftOperand->evaluate() - rightOperand->evaluate();;
+		value = leftOperand->evaluate()->getInteger() - rightOperand->evaluate()->getInteger();
+		return std::make_shared<IntegerValue>(value);
 		break;
 	case STAR:
-		return leftOperand->evaluate() * rightOperand->evaluate();;
+		value = leftOperand->evaluate()->getInteger() * rightOperand->evaluate()->getInteger();
+		return std::make_shared<IntegerValue>(value);
 		break;
 	case SLASH:
-		return leftOperand->evaluate() / rightOperand->evaluate();;
+		value = leftOperand->evaluate()->getInteger() / rightOperand->evaluate()->getInteger();
+		return std::make_shared<IntegerValue>(value);
 		break;
 	default:
-		return 0;
+		return std::make_shared<IntegerValue>(0);
 		break;
 	}
 }

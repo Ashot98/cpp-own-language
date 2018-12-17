@@ -16,6 +16,7 @@ private:
 	int currentPosition;
 	
 	void tokenizeNumber();
+	void tokenizeText();
 	void tokenizeOperator();
 
 	char next();

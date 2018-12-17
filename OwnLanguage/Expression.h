@@ -1,7 +1,12 @@
 #pragma once
+#include "Value.h"
+#include <Memory>
+
+using ValuePointer = std::shared_ptr<Value>;
+
 class Expression
 {
 public:
-	virtual int evaluate() = 0;
+	virtual ValuePointer evaluate() = 0;
 };
 

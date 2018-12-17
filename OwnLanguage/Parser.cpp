@@ -1,7 +1,7 @@
 #include "Parser.h"
 
 
-ExpressionPointer Parser::parseNumber()
+ExpressionPointer Parser::parseValue()
 {
 	Token currentToken = tokensToParse.at(currentPosition);
 
@@ -9,6 +9,11 @@ ExpressionPointer Parser::parseNumber()
 		incrementPosition();
 		IntegerExpression result(std::stoi(currentToken.getValue()));
 		return std::make_shared<IntegerExpression>(result);
+	}
+	if (matchType(TEXT)) {
+		incrementPosition();
+		TextExpression result(currentToken.getValue());
+		return std::make_shared<TextExpression>(result);
 	}
 	if (matchType(LEFT_PARENTHESES)) {
 		incrementPosition();
@@ -23,16 +28,16 @@ ExpressionPointer Parser::parseNumber()
 
 ExpressionPointer Parser::parseMultiplicativeOp()
 {
-	ExpressionPointer currentExpression = parseNumber();
+	ExpressionPointer currentExpression = parseValue();
 	while (true) {
 		if (matchType(SLASH)) {
 			incrementPosition();
-			BinaryOperationExpression result(SLASH, currentExpression, parseNumber());
+			BinaryOperationExpression result(SLASH, currentExpression, parseValue());
 			currentExpression = std::make_shared<BinaryOperationExpression>(result);
 		}
 		else if (matchType(STAR)) {
 			incrementPosition();
-			BinaryOperationExpression result(STAR, currentExpression, parseNumber());
+			BinaryOperationExpression result(STAR, currentExpression, parseValue());
 			currentExpression = std::make_shared<BinaryOperationExpression>(result);
 		}
 		else {

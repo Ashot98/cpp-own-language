@@ -19,6 +19,12 @@
     <Filter Include="Файлы заголовков\ExpressionTypes">
       <UniqueIdentifier>{7bccf8a5-58ce-4697-bfdf-728ebe1711f1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Исходные файлы\Values">
+      <UniqueIdentifier>{542a0e8d-809a-4fa4-801d-58419355bf80}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Values">
+      <UniqueIdentifier>{4b89e4dc-06d0-4aac-a11f-5264e2ac8aff}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -38,6 +44,18 @@
     </ClCompile>
     <ClCompile Include="BinaryOperationExpression.cpp">
       <Filter>Исходные файлы\ExpressionTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="IntegerValue.cpp">
+      <Filter>Исходные файлы\Values</Filter>
+    </ClCompile>
+    <ClCompile Include="TextExpression.cpp">
+      <Filter>Исходные файлы\ExpressionTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="TextValue.cpp">
+      <Filter>Исходные файлы\Values</Filter>
+    </ClCompile>
+    <ClCompile Include="FileHandler.cpp">
+      <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -61,6 +79,21 @@
     </ClInclude>
     <ClInclude Include="BinaryOperationExpression.h">
       <Filter>Файлы заголовков\ExpressionTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="Value.h">
+      <Filter>Файлы заголовков\Values</Filter>
+    </ClInclude>
+    <ClInclude Include="IntegerValue.h">
+      <Filter>Файлы заголовков\Values</Filter>
+    </ClInclude>
+    <ClInclude Include="TextExpression.h">
+      <Filter>Файлы заголовков\ExpressionTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="TextValue.h">
+      <Filter>Файлы заголовков\Values</Filter>
+    </ClInclude>
+    <ClInclude Include="FileHandler.h">
+      <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

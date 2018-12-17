@@ -1,8 +1,11 @@
 #pragma once
 
 #include <memory>
+#include <typeinfo>
 #include "Expression.h"
 #include "TokenTypes.h"
+#include "IntegerValue.h"
+#include "TextValue.h"
 
 using ExpressionPointer = std::shared_ptr<Expression>;
 
@@ -15,6 +18,6 @@ private:
 public:
 	BinaryOperationExpression(TokenType, ExpressionPointer, ExpressionPointer);
 
-	virtual int evaluate();
+	virtual ValuePointer evaluate();
 };
 

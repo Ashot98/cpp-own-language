@@ -6,7 +6,7 @@ IntegerExpression::IntegerExpression(int initialValue)
 {
 }
 
-int IntegerExpression::evaluate()
+ValuePointer IntegerExpression::evaluate()
 {
-	return value;
+	return std::make_shared<IntegerValue>(value);
 }

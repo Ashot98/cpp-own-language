@@ -15,6 +15,9 @@ std::vector<Token> Lexer::tokenize() {
 			tokenizeNumber();
 			
 		}
+		else if (currentValue == '"') {
+			tokenizeText();
+		}
 		else if (operators.find(currentValue) != -1) {
 			tokenizeOperator();
 		}
@@ -37,6 +40,22 @@ void Lexer::tokenizeNumber()
 		currentValue = next();
 	}
 	addToken(NUMBER, numberValue);
+}
+
+void Lexer::tokenizeText()
+{
+	char currentValue = next();
+	std::string textValue = "";
+
+	while (currentValue != '"') {
+		textValue.push_back(currentValue);
+		currentValue = next();
+		if (currentValue == '\0') {
+			throw new std::runtime_error("Invalid String Literal");
+		}
+	}
+	next();
+	addToken(TEXT, textValue);
 }
 
 void Lexer::tokenizeOperator()

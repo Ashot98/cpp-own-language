@@ -3,6 +3,7 @@
 
 enum TokenType {
 	NUMBER,
+	TEXT,
 
 	PLUS,
 	MINUS,
@@ -20,6 +21,9 @@ inline std::ostream & operator<<(std::ostream & out, TokenType tokenType) {
 	{
 	case NUMBER:
 		out << "NUMBER";
+		break;
+	case TEXT:
+		out << "TEXT";
 		break;
 	case PLUS:
 		out << "PLUS";
